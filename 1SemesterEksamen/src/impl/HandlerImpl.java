@@ -3,15 +3,32 @@ package impl;
 import first_semester_eksamen.Handler;
 import first_semester_eksamen.Sample;
 import first_semester_eksamen.TimeFormatException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class HandlerImpl implements Handler {
+
     public static final String FILENAME = "Samples.csv";
 
     @Override
     public String readFile(String filename) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+        StringBuilder sb = new StringBuilder();
+        try {
+            String line = br.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+            }
+        } finally {
+            br.close();
+        }
+        String contents = sb.toString();
+        return contents;
     }
 
     @Override
@@ -54,4 +71,11 @@ public class HandlerImpl implements Handler {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    public static void main(String[] args) throws IOException {
+        System.out.println("------------ STARTING -----------");
+        Handler hndl = new HandlerImpl();
+        String res = hndl.readFile("Samples.csv");
+        System.out.println(res);
+    }
+
 }
