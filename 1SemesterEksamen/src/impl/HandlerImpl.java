@@ -2,6 +2,7 @@ package impl;
 
 import first_semester_eksamen.Handler;
 import first_semester_eksamen.Sample;
+import first_semester_eksamen.SlowSample;
 import first_semester_eksamen.TimeFormatException;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -38,7 +39,10 @@ public class HandlerImpl implements Handler {
 
     @Override
     public Sample getHighestAmplitude(ArrayList<Sample> samples) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Sample highestAmp = null;
+        
+        
+        return highestAmp;
     }
 
     @Override
