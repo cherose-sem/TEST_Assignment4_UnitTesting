@@ -7,3 +7,7 @@ Exam for 1. semester Computer Science ASSIGNMENT
 
 ### Solutions:
 <_to be added_>
+
+tests
+implementation ServingHandlerImpl
+reminder:comments stuff
