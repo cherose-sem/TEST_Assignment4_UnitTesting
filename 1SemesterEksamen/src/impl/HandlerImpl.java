@@ -43,7 +43,7 @@ public class HandlerImpl implements Handler {
     @Override
     public ArrayList<Sample> getSamples(String data) throws TimeFormatException {
         //temporaty
-        data = this.readFile(FILENAME);
+        //data = this.readFile(FILENAME);
         try {
             while ((line = data) != null) {
                 // use comma as separator
