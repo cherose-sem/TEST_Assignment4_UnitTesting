@@ -10,64 +10,103 @@ import java.util.ArrayList;
 
 public class ServingHandlerImpl implements ServingHandler{
 
-    @Override
-    public String readFile(String filename) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        @Override
+        public void sortByTime(ArrayList<Serving> servings) {
+                    }
 
-    @Override
-    public ArrayList<Serving> getServings(String data) throws TimeFormatException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        @Override
+        public String readFile(String filename) throws IOException {
+            return null;
+        }
 
-    @Override
-    public Serving getHighestServing(ArrayList<Serving> servings) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        @Override
+        public ArrayList<Serving> getServings(String data) throws TimeFormatException {
+            return null;
+        }
+        //Emmely
+        @Override
+        public Serving getHighestServing(ArrayList<Serving> servings) {
+            Serving highest=null;
+            int size = servings.size();
+            int highestValue = -10;
 
-    @Override
-    public Serving getLessServing(ArrayList<Serving> servings) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+            for (int i = 0; i < size ; i++) {
+                if ( servings.get(i).getAmount() > highestValue ) {
+                    highest = servings.get(i);
+                    highestValue = servings.get(i).getAmount();
+                }
+            }
+            return highest;
+        }
 
-    @Override
-    public double getValidServings(Serving serving) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        @Override
+        public Serving getLessServing(ArrayList<Serving> servings) {
+            Serving lowest=null;
+            int size = servings.size();
+            int lowestValue = -10;
 
-    @Override
-    public boolean isTooMuch(int limit, ArrayList<Serving> servings) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+            for (int i = 0; i < size ; i++) {
+                if ( servings.get(i).getAmount() < lowestValue ) {
+                    lowest = servings.get(i);
+                    lowestValue = servings.get(i).getAmount();
+                }
+            }
+            return lowest;
+        }
 
-    @Override
-    public void sortByTime(ArrayList<Serving> servings) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        @Override
+        public ArrayList<Serving> getValidServings(int max, int min, ArrayList<Serving> servings) {
+            return null;
+        }
 
-    @Override
-    public void sortByAmount(ArrayList<Serving> servings) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        @Override
+        public boolean isTooMuch(int limit, Serving serving) {
 
-    @Override
-    public ArrayList<Serving> getTooHighServings(int max, int min, ArrayList<Serving> servings) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+            if ( serving.getAmount() > limit ) {
+                return true;
+            }
+            return false;
+        }
 
-    @Override
-    public ArrayList<Serving> getLessServings(int limit, ArrayList<Serving> servings) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        @Override
+        public void sortByAmount(ArrayList<Serving> servings) {
 
-    @Override
-    public int getTotalExcessServings(ArrayList<Serving> servings) {
-        return 0;
-    }
+        }
 
-    @Override
-    public int getTotalMissingServings(ArrayList<Serving> servings) {
-        return 0;
-    }
+        @Override
+        public ArrayList<Serving> getTooHighServings(int max, ArrayList<Serving> servings) {
+            return null;
+        }
+
+        @Override
+        public ArrayList<Serving> getLessServings(int limit, ArrayList<Serving> servings) {
+            return null;
+        }
+
+        @Override
+        public int getTotalExcessServings(int max, ArrayList<Serving> servings) {
+            int size = servings.size();
+            int amount = 0;
+
+            for (int i = 0; i < size ; i++) {
+                if ( servings.get(i).getAmount() > max ) {
+                    amount += servings.get(i).getAmount();
+                }
+            }
+            return amount;
+        }
+
+        @Override
+        public int getTotalMissingServings(int min, ArrayList<Serving> servings) {
+            int size = servings.size();
+            int amount = 0;
+
+            for (int i = 0; i < size ; i++) {
+                if ( servings.get(i).getAmount() > min ) {
+                    amount += min - servings.get(i).getAmount();
+                }
+            }
+            return amount;
+        }
 
 }
