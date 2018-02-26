@@ -2,12 +2,14 @@ package impl;
 
 import first_semester_eksamen.Handler;
 import first_semester_eksamen.Sample;
+import first_semester_eksamen.SlowSample;
 import first_semester_eksamen.TimeFormatException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class HandlerImpl implements Handler {
 
@@ -32,7 +34,6 @@ public class HandlerImpl implements Handler {
         return contents;
     }
 
-
     /**
      * Converts file content to proper objects
      *
@@ -42,28 +43,42 @@ public class HandlerImpl implements Handler {
      */
     @Override
     public ArrayList<Sample> getSamples(String data) throws TimeFormatException {
-        //temporaty
-        //data = this.readFile(FILENAME);
-        try {
-            while ((line = data) != null) {
-                // use comma as separator
-                String[] sample = line.split(cvsSplitBy);
 
-                System.out.println("Sample [date= " + sample[1] + " , time=" + sample[2] + "]");
+        ArrayList<Sample> samples = new ArrayList();
+        String[] lines = data.split("\n");
 
+        for (int i = 1; i < lines.length; i++) {
+            if (lines[i].length() > 0) {
+//                System.out.println("THE LINE IS " + lines[i]);
+                String[] arr = lines[i].split(",");
+                String date = arr[0];
+                String[] tm = arr[1].split(":");
+                int hr = Integer.parseInt(tm[0]);
+                int min = Integer.parseInt(tm[1]);
+                Time time = new Time(hr, min);
+//                System.out.println("AMP" + arr[2] + ".");
+                boolean isNumber = Pattern.matches("[0-9]+", arr[2]);
+                int amp;
+                if (isNumber) {
+                    amp = Integer.parseInt(arr[2]);
+//                    System.out.println("HERE: " + number);
+                }else{
+                    amp = 0;
+                }
+//                int amp = Integer.parseInt(arr[2]);
+                Sample sample = new SampleImpl(date, time, amp);
+                samples.add(sample);
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-       // throw new UnsupportedOperationException("Not supported yet.");
+        return samples;
 
     }
 
     @Override
     public Sample getHighestAmplitude(ArrayList<Sample> samples) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Sample highestAmp = null;
+
+        return highestAmp;
     }
     /**
      * Identifies the sample which have increased the most in amplitude
@@ -116,14 +131,15 @@ public class HandlerImpl implements Handler {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, TimeFormatException {
         System.out.println("------------ STARTING -----------");
         Handler hndl = new HandlerImpl();
         String res = hndl.readFile("Samples.csv");
-        System.out.println(res);
+//        System.out.println(res);
+        ArrayList<Sample> samples = hndl.getSamples(res);
+        for (int i = 0; i < samples.size(); i++) {
+            System.out.println("SAMPLE " + i + samples.get(i).toString());
+        }
     }
-
-
 
 }
