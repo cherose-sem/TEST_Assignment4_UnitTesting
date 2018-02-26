@@ -18,7 +18,7 @@ public class HandlerImplTest {
     private ArrayList<Sample> samples;
     private static int score = 0;
         
-    // 1
+    //
     @Test
     public void testReadFile() {
         try {

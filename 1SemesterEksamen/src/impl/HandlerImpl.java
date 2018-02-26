@@ -5,6 +5,7 @@ import first_semester_eksamen.Sample;
 import first_semester_eksamen.TimeFormatException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,9 +32,33 @@ public class HandlerImpl implements Handler {
         return contents;
     }
 
+
+    /**
+     * Converts file content to proper objects
+     *
+     * @param data The file content as a String
+     * @return a list of Sample objects
+     * @throws TimeFormatException if time is formated badly
+     */
     @Override
     public ArrayList<Sample> getSamples(String data) throws TimeFormatException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //temporaty
+        data = this.readFile(FILENAME);
+        try {
+            while ((line = data) != null) {
+                // use comma as separator
+                String[] sample = line.split(cvsSplitBy);
+
+                System.out.println("Sample [date= " + sample[1] + " , time=" + sample[2] + "]");
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+       // throw new UnsupportedOperationException("Not supported yet.");
+
     }
 
     @Override
@@ -70,6 +95,7 @@ public class HandlerImpl implements Handler {
     public ArrayList<Sample> getSamplesBefore(Time limit, ArrayList<Sample> samples) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
     
     public static void main(String[] args) throws IOException {
         System.out.println("------------ STARTING -----------");
@@ -77,5 +103,6 @@ public class HandlerImpl implements Handler {
         String res = hndl.readFile("Samples.csv");
         System.out.println(res);
     }
+
 
 }
