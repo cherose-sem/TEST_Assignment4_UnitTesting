@@ -60,4 +60,14 @@ public class ServingHandlerImpl implements ServingHandler{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public int getTotalExcessServings(ArrayList<Serving> servings) {
+        return 0;
+    }
+
+    @Override
+    public int getTotalMissingServings(ArrayList<Serving> servings) {
+        return 0;
+    }
+
 }
