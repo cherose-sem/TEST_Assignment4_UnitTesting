@@ -65,10 +65,30 @@ public class HandlerImpl implements Handler {
     public Sample getHighestAmplitude(ArrayList<Sample> samples) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+    /**
+     * Identifies the sample which have increased the most in amplitude
+     * compared to its predecessor.
+     * The compared values are signed - It is NOT the numerical difference
+     * that counts.
+     * @param samples The list of Samples based on file content - At least
+     * 2 values are required
+     * @return the identified Sample object
+     */
     @Override
     public Sample getBiggestRise(ArrayList<Sample> samples) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //throw new UnsupportedOperationException("Not supported yet.");
+        int higestDiff=0;
+        int indexCurrent=1;
+        for (int i = 1; i <samples.size() ; i++) {
+            Sample predecessor = samples.get(i-1);
+            Sample current = samples.get(i);
+
+            if(higestDiff < (current.getAmplitude() - predecessor.getAmplitude()) ){
+                higestDiff = current.getAmplitude() - predecessor.getAmplitude();
+                indexCurrent = i;
+            }
+        }
+        return samples.get(indexCurrent);
     }
 
     @Override
@@ -103,6 +123,7 @@ public class HandlerImpl implements Handler {
         String res = hndl.readFile("Samples.csv");
         System.out.println(res);
     }
+
 
 
 }
