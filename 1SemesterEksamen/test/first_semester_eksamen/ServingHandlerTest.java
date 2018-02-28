@@ -7,6 +7,10 @@ package first_semester_eksamen;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import impl.ServingHandlerImpl;
+import impl.ServingImpl;
+import impl.Time;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,7 +20,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Cherry Rose Semeña
+ * @author Cherry Rose Semeña, Emmely Lundberg
  */
 public class ServingHandlerTest {
     
@@ -96,7 +100,19 @@ public class ServingHandlerTest {
         Serving result = instance.getLessServing(servings);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //public String getDate();
+        //public Time getTime();
+        //ServingImpl(String date, Time time, int amount, String type)
+        Time t = new Time("10:01");
+        servings.add (new ServingImpl("24-12-2017", t,157,"André"));
+        servings.add (new ServingImpl("24-12-2017", t,147,"Sofia"));
+        servings.add (new ServingImpl("24-12-2017", t,142,"Paula"));
+        Serving result2 = instance.getLessServing(servings);
+        assertEquals(142, result2.getAmount());
+
+        //todo fake an array of servings
+        // test that the function returns the lower
+
     }
 
     /**
@@ -106,10 +122,12 @@ public class ServingHandlerTest {
     public void testGetValidServings() {
         System.out.println("getValidServings");
         Serving serving = null;
+        ArrayList<Serving> servings = null;
+
         ServingHandler instance = new ServingHandlerImpl();
-        double expResult = 0.0;
-        double result = instance.getValidServings(serving);
-        assertEquals(expResult, result, 0.0);
+        double expResult = 3;
+        ArrayList<Serving> result = instance.getValidServings(123,33,servings);
+        assertEquals(expResult, result.size());
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -189,45 +207,6 @@ public class ServingHandlerTest {
         fail("The test case is a prototype.");
     }
 
-    public class ServingHandlerImpl implements ServingHandler {
 
-        public String readFile(String filename) throws IOException {
-            return "";
-        }
-
-        public ArrayList<Serving> getServings(String data) throws TimeFormatException {
-            return null;
-        }
-
-        public Serving getHighestServing(ArrayList<Serving> servings) {
-            return null;
-        }
-
-        public Serving getLessServing(ArrayList<Serving> servings) {
-            return null;
-        }
-
-        public double getValidServings(Serving serving) {
-            return 0.0;
-        }
-
-        public boolean isTooMuch(int limit, ArrayList<Serving> servings) {
-            return false;
-        }
-
-        public void sortByTime(ArrayList<Serving> servings) {
-        }
-
-        public void sortByAmount(ArrayList<Serving> servings) {
-        }
-
-        public ArrayList<Serving> getTooHighServings(int max, int min, ArrayList<Serving> servings) {
-            return null;
-        }
-
-        public ArrayList<Serving> getLessServings(int limit, ArrayList<Serving> servings) {
-            return null;
-        }
-    }
     
 }

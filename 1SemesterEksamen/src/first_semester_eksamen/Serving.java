@@ -9,11 +9,11 @@ import impl.Time;
 
 /**
  *
- * @author Cherry Rose Semeña
+ * @author Cherry Rose Semeña, Emmely Lundberg
  */
 public interface Serving {
     public String getDate();
     public Time getTime();
     public int getAmount();
-    public String getTypeOfWine();
+    public String getWaiter();
 }

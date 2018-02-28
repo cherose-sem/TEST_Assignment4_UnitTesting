@@ -43,9 +43,13 @@ public class ServingHandlerImpl implements ServingHandler{
         public Serving getLessServing(ArrayList<Serving> servings) {
             Serving lowest=null;
             int size = servings.size();
-            int lowestValue = -10;
+            int lowestValue = -1;
 
             for (int i = 0; i < size ; i++) {
+                if(i ==0){
+                    lowestValue = servings.get(i).getAmount();
+                    lowest = servings.get(i);
+                }
                 if ( servings.get(i).getAmount() < lowestValue ) {
                     lowest = servings.get(i);
                     lowestValue = servings.get(i).getAmount();
