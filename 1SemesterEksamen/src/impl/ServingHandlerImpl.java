@@ -47,7 +47,10 @@ public class ServingHandlerImpl implements ServingHandler {
 
     /** @author Emmely Lundberg */
     @Override
-    public Serving getLessServing(ArrayList<Serving> servings) {
+    public Serving getLessServing(ArrayList<Serving> servings){
+        if(servings == null){
+            return null;
+        }
         Serving lowest = null;
         int size = servings.size();
         int lowestValue = -1;
@@ -62,6 +65,7 @@ public class ServingHandlerImpl implements ServingHandler {
                 lowestValue = servings.get(i).getAmount();
             }
         }
+
         return lowest;
     }
     /** @author Cherry Rose Semeña */
@@ -103,7 +107,7 @@ public class ServingHandlerImpl implements ServingHandler {
 
         for (int i = 0; i < size; i++) {
             if (servings.get(i).getAmount() > max) {
-                amount += servings.get(i).getAmount();
+                amount +=  servings.get(i).getAmount() - max;
             }
         }
         return amount;
@@ -116,7 +120,7 @@ public class ServingHandlerImpl implements ServingHandler {
         int amount = 0;
 
         for (int i = 0; i < size; i++) {
-            if (servings.get(i).getAmount() > min) {
+            if (servings.get(i).getAmount() < min) {
                 amount += min - servings.get(i).getAmount();
             }
         }
