@@ -31,7 +31,10 @@ public class ServingImpl implements Serving {
 
     @Override
     public String toString() {
-        return "Serving{" + "date=" + date + ", time=" + time + 
-                ", amt=" + amount + ", type=" + waiter + '}';
+        String res = "----------------------------------------------------------" 
+                + "\n" + "date: " + this.date + ", time: " + this.time + ", amt: " 
+                + this.amount + ", waiter: " + this.waiter;
+//        System.out.println("THE RES IS " + res);
+        return res;
     }
 }

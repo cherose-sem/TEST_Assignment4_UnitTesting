@@ -1,31 +1,85 @@
-
 package impl;
 
-import first_semester_eksamen.Sample;
 import first_semester_eksamen.Serving;
 import first_semester_eksamen.ServingHandler;
 import first_semester_eksamen.TimeFormatException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class ServingHandlerImpl implements ServingHandler {
-    /** @author Cherry Rose Semeña */
+
+    /**
+     * @author Cherry Rose Semeña
+     */
     @Override
     public void sortByTime(ArrayList<Serving> servings) {
     }
-    /** @author Cherry Rose Semeña */
+
+    /**
+     * @author Cherry Rose Semeña
+     */
     @Override
     public String readFile(String filename) throws IOException {
-        return null;
-    }
-    /** @author Cherry Rose Semeña */
-    @Override
-    public ArrayList<Serving> getServings(String data) throws TimeFormatException {
-        return null;
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+        StringBuilder sb = new StringBuilder();
+        try {
+            String line = br.readLine();
+
+            while (line != null) {
+                sb.append(line);
+                sb.append(System.lineSeparator());
+                line = br.readLine();
+            }
+        } finally {
+            br.close();
+        }
+        String contents = sb.toString();
+        return contents;
     }
 
-    /** @author Emmely Lundberg */
+    /**
+     * @author Cherry Rose Semeña
+     */
+    @Override
+    public ArrayList<Serving> getServings(String data) throws TimeFormatException {
+        ArrayList<Serving> servings = new ArrayList();
+        String[] lines = data.split("\n");
+        
+        for (int i = 1; i < lines.length-1; i++) {
+            if (lines[i].length() > 0) {
+//                System.out.println("THE LINE IS " + lines[i]);
+                String[] arr = lines[i].split(",");
+                String date = arr[0];
+                String[] tm = arr[1].split(":");
+                int hr = Integer.parseInt(tm[0]);
+                int min = Integer.parseInt(tm[1]);
+                Time time = new Time(hr, min);
+//                System.out.println("Amt" + arr[2] + ".");
+                boolean isNumber = Pattern.matches("[0-9]+", arr[2]);
+                int amt;
+                if (isNumber) {
+                    amt = Integer.parseInt(arr[2]);
+//                    System.out.println("HERE: " + number);
+                }else{
+                    amt = 0;
+                }
+//                int amp = Integer.parseInt(arr[2]);
+                String waiter = arr[3];
+                Serving serving = new ServingImpl(date, time, amt, waiter);
+                servings.add(serving);
+            }
+        }
+        
+        return servings;
+    }
+
+    /**
+     * @author Emmely Lundberg
+     */
     @Override
     public Serving getHighestServing(ArrayList<Serving> servings) {
         Serving highest = null;
@@ -37,7 +91,7 @@ public class ServingHandlerImpl implements ServingHandler {
                 highestValue = servings.get(i).getAmount();
                 highest = servings.get(i);
             }
-                if (servings.get(i).getAmount() > highestValue) {
+            if (servings.get(i).getAmount() > highestValue) {
                 highest = servings.get(i);
                 highestValue = servings.get(i).getAmount();
             }
@@ -45,7 +99,9 @@ public class ServingHandlerImpl implements ServingHandler {
         return highest;
     }
 
-    /** @author Emmely Lundberg */
+    /**
+     * @author Emmely Lundberg
+     */
     @Override
     public Serving getLessServing(ArrayList<Serving> servings) {
         Serving lowest = null;
@@ -64,13 +120,18 @@ public class ServingHandlerImpl implements ServingHandler {
         }
         return lowest;
     }
-    /** @author Cherry Rose Semeña */
+
+    /**
+     * @author Cherry Rose Semeña
+     */
     @Override
     public ArrayList<Serving> getValidServings(int max, int min, ArrayList<Serving> servings) {
         return null;
     }
 
-    /** @author Emmely Lundberg */
+    /**
+     * @author Emmely Lundberg
+     */
     @Override
     public boolean isTooMuch(int limit, Serving serving) {
 
@@ -79,23 +140,34 @@ public class ServingHandlerImpl implements ServingHandler {
         }
         return false;
     }
-    /** @author Cherry Rose Semeña */
+
+    /**
+     * @author Cherry Rose Semeña
+     */
     @Override
     public void sortByAmount(ArrayList<Serving> servings) {
 
     }
-    /** @author Cherry Rose Semeña */
+
+    /**
+     * @author Cherry Rose Semeña
+     */
     @Override
     public ArrayList<Serving> getTooHighServings(int max, ArrayList<Serving> servings) {
         return null;
     }
-    /** @author Cherry Rose Semeña */
+
+    /**
+     * @author Cherry Rose Semeña
+     */
     @Override
     public ArrayList<Serving> getLessServings(int limit, ArrayList<Serving> servings) {
         return null;
     }
 
-    /** @author Emmely Lundberg */
+    /**
+     * @author Emmely Lundberg
+     */
     @Override
     public int getTotalExcessServings(int max, ArrayList<Serving> servings) {
         int size = servings.size();
@@ -109,7 +181,9 @@ public class ServingHandlerImpl implements ServingHandler {
         return amount;
     }
 
-    /** @author Emmely Lundberg */
+    /**
+     * @author Emmely Lundberg
+     */
     @Override
     public int getTotalMissingServings(int min, ArrayList<Serving> servings) {
         int size = servings.size();
@@ -123,4 +197,16 @@ public class ServingHandlerImpl implements ServingHandler {
         return amount;
     }
 
+    public static void main(String[] args) throws IOException, TimeFormatException {
+        System.out.println("------------ STARTING -----------");
+        ServingHandler hndl = new ServingHandlerImpl();
+        String res = hndl.readFile("Servings.csv");
+//        System.out.println(res);
+        ArrayList<Serving> servings = hndl.getServings(res);
+        for (int i = 0; i < servings.size(); i++) {
+            String s = servings.get(i).toString();
+            System.out.println(s);
+        }
+    }
+    
 }
