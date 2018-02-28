@@ -7,9 +7,13 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Cherry Rose Semeña & Emmely
+ * @author Cherry Rose Semeña & Emmely Lundberg
  */
 public interface ServingHandler {
+    //Cherry
+
+    void sortByTime(ArrayList<Serving> servings);
+
     /**
      * Convert a file to a String
      * @param filename The name of the file to be read
@@ -17,7 +21,7 @@ public interface ServingHandler {
      * @throws IOException if file is missing or locked
      */
     public String readFile(String filename) throws IOException;
-    
+    //Cherry
     /**
      * Converts file content to proper objects
      * @param data The file content as a String
@@ -25,69 +29,79 @@ public interface ServingHandler {
      * @throws TimeFormatException if time is formated badly
      */
     public ArrayList<Serving> getServings(String data) throws TimeFormatException;
-    
+    //Emmely
     /**
-     * Identifies the Serving with the highest amount served. 
+     * Identifies the Serving with the highest amount served.
      * @param servings The list of Samples based on file content
      * @return the identified Serving object
      */
     public Serving getHighestServing(ArrayList<Serving> servings);
-    
+    //Emmely
     /**
-     * Identifies the Sample with the highest amplitude. Peaks are ignored.
-     * @param samples The list of Samples based on file content
-     * @return the identified Sample object
+     * Identifies the Serving with the lowest amount served.
+     * @param servings The list of Servings based on file content
+     * @return the identified Serving object
      */
     public Serving getLessServing(ArrayList<Serving> servings);
-    
+    //Cherry
     /**
-     * Identifies the sample which have increased the most in amplitude 
-     * compared to its predecessor. 
-     * The compared values are signed - It is NOT the numerical difference 
-     * that counts.
-     * @param samples The list of Samples based on file content - At least 
+     * Identifies the servings with correct amount
+     * compared to its predecessor.
+     * @param max The maximum servings allowed - 165ml
+     * @param min The minimum servings allowed - 155ml
+     * @param servings The list of Samples based on file content - At least
      * 2 values are required
-     * @return the identified Sample object
+     * @return a new list containing the subset
      */
-    public double getValidServings(Serving serving);
-    
+    public ArrayList<Serving> getValidServings(int max, int min, ArrayList<Serving> servings);
+    //Emmely
     /**
-     * Determines whether or not any sample surpasses the set limit. 
-     * Peaks matter
+     * Determines whether or not any serving surpasses the set limit.
+     * Serving amount matter
      * @param limit The highest allowed value
-     * @param samples The list of Samples based on file content
-     * @return true if any amplitude or peak is greater than the limit,
+     * @param servings The list of Servings based on file content
+     * @return true if any served amount is greater than the limit,
      * false in any other case.
      */
-    public boolean isTooMuch(int limit, ArrayList<Serving> servings);
-    
+    public boolean isTooMuch(int limit, Serving serving);
+
+    //Cherry
     /**
-     * Sorts samples by time
-     * @param samples The list that will be sorted
-     */
-    public void sortByTime(ArrayList<Serving> servings);
-    
-    /**
-     * sorts samples by amplitude (ignore peak)
-     * @param samples The list that will be sorted
+     * sorts servings by amount
+     * @param servings The list that will be sorted
      */
     public void sortByAmount(ArrayList<Serving> servings);
-    
+    //Cherry
     /**
      * Retrieves a subset containing the too high servings
-     * @param max The maximum servings allowed - 155ml
-     * @param min The minimum servings allowed - 165ml
+     * @param max The maximum servings allowed - 165ml
      * @param servings The list from which to get the subset
      * @return a new list containing the subset
      */
-    public ArrayList<Serving> getTooHighServings(int max, int min, ArrayList<Serving> servings);
-    
+    public ArrayList<Serving> getTooHighServings(int max,  ArrayList<Serving> servings);
+    //Cherry
     /**
-     * Retrieves a subset containing only the samples that have a timestamp 
-     * earlier than the limit. (NOT equal to the limit!)
-     * @param limit The time limit
-     * @param samples The list from which to get the subset
+     * Retrieves a subset containing only the servings that are below the minimum limit
+     * @param min The minimum servings allowed - 155ml
+     * @param servings The list from which to get the subset
      * @return a new list containing the subset
      */
-    public ArrayList<Serving> getLessServings(int limit, ArrayList<Serving> servings);    
+    public ArrayList<Serving> getLessServings(int min, ArrayList<Serving> servings);
+
+    //Emmely
+    /**
+     * Retrieves an aggregation of the total amount above the maximum servings allowed
+     * @param max The maximum servings allowed - 165ml
+     * @param servings The list from which to get the subset
+     * @return a new list containing the subset
+     */
+    public int getTotalExcessServings(int max, ArrayList<Serving> servings);
+    //Emmely
+    /**
+     * Retrieves the total amount missing for servings below minimum servings allowed
+     * @param min The minimum servings allowed - 155ml
+     * @param servings The list from which to get the subset
+     * @return a new list containing the subset
+     */
+    public int getTotalMissingServings(int min, ArrayList<Serving> servings);
 }

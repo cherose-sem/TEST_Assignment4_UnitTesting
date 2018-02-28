@@ -7,6 +7,10 @@ package first_semester_eksamen;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import impl.ServingHandlerImpl;
+import impl.ServingImpl;
+import impl.Time;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,7 +20,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Cherry Rose Semeña
+ * @author Cherry Rose Semeña, Emmely Lundberg
  */
 public class ServingHandlerTest {
     
@@ -68,8 +72,8 @@ public class ServingHandlerTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
     /**
+     * @author Emmely Lundberg
      * Test of getHighestServing method, of class ServingHandler.
      */
     @Test
@@ -77,14 +81,19 @@ public class ServingHandlerTest {
         System.out.println("getHighestServing");
         ArrayList<Serving> servings = null;
         ServingHandler instance = new ServingHandlerImpl();
-        Serving expResult = null;
+        int expResult = 157;
+        Time t = new Time("10:01");
+        servings.add (new ServingImpl("24-12-2017", t,157,"André"));
+        servings.add (new ServingImpl("24-12-2017", t,147,"Sofia"));
+        servings.add (new ServingImpl("24-12-2017", t,142,"Paula"));
         Serving result = instance.getHighestServing(servings);
-        assertEquals(expResult, result);
+        assertEquals(expResult, result.getAmount());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
+     * @author Emmely Lundberg
      * Test of getLessServing method, of class ServingHandler.
      */
     @Test
@@ -96,7 +105,20 @@ public class ServingHandlerTest {
         Serving result = instance.getLessServing(servings);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //public String getDate();
+        //public Time getTime();
+        //ServingImpl(String date, Time time, int amount, String type)
+        int exp = 142;
+        Time t = new Time("10:01");
+        servings.add (new ServingImpl("24-12-2017", t,157,"André"));
+        servings.add (new ServingImpl("24-12-2017", t,147,"Sofia"));
+        servings.add (new ServingImpl("24-12-2017", t,142,"Paula"));
+        Serving result2 = instance.getLessServing(servings);
+        assertEquals(exp, result2.getAmount());
+
+        //todo fake an array of servings
+        // test that the function returns the lower
+
     }
 
     /**
@@ -105,27 +127,43 @@ public class ServingHandlerTest {
     @Test
     public void testGetValidServings() {
         System.out.println("getValidServings");
-        Serving serving = null;
+        ArrayList<Serving> servings = null;
+
         ServingHandler instance = new ServingHandlerImpl();
-        double expResult = 0.0;
-        double result = instance.getValidServings(serving);
-        assertEquals(expResult, result, 0.0);
+        double expResult = 3;
+        ArrayList<Serving> result = instance.getValidServings(123,33,servings);
+        assertEquals(expResult, result.size());
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
+     * @author Emmely Lundberg
      * Test of isTooMuch method, of class ServingHandler.
      */
     @Test
     public void testIsTooMuch() {
         System.out.println("isTooMuch");
-        int limit = 0;
-        ArrayList<Serving> servings = null;
+        Time t = new Time("10:01");
+        int limit = 165;
         ServingHandler instance = new ServingHandlerImpl();
-        boolean expResult = false;
-        boolean result = instance.isTooMuch(limit, servings);
+        Serving serving = new ServingImpl("24-12-2017", t,166,"André");
+        boolean expResult = true;
+        boolean result = instance.isTooMuch(limit, serving);
         assertEquals(expResult, result);
+
+
+        serving = new ServingImpl("24-12-2017", t,165,"André");
+        expResult = true;
+        result = instance.isTooMuch(limit, serving);
+        assertEquals(expResult, result);
+
+
+        serving = new ServingImpl("24-12-2017", t,164,"André");
+        expResult = false;
+        result = instance.isTooMuch(limit, serving);
+        assertEquals(expResult, result);
+
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -167,7 +205,7 @@ public class ServingHandlerTest {
         ArrayList<Serving> servings = null;
         ServingHandler instance = new ServingHandlerImpl();
         ArrayList<Serving> expResult = null;
-        ArrayList<Serving> result = instance.getTooHighServings(max, min, servings);
+        ArrayList<Serving> result = instance.getTooHighServings(max,  servings);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -189,45 +227,6 @@ public class ServingHandlerTest {
         fail("The test case is a prototype.");
     }
 
-    public class ServingHandlerImpl implements ServingHandler {
 
-        public String readFile(String filename) throws IOException {
-            return "";
-        }
-
-        public ArrayList<Serving> getServings(String data) throws TimeFormatException {
-            return null;
-        }
-
-        public Serving getHighestServing(ArrayList<Serving> servings) {
-            return null;
-        }
-
-        public Serving getLessServing(ArrayList<Serving> servings) {
-            return null;
-        }
-
-        public double getValidServings(Serving serving) {
-            return 0.0;
-        }
-
-        public boolean isTooMuch(int limit, ArrayList<Serving> servings) {
-            return false;
-        }
-
-        public void sortByTime(ArrayList<Serving> servings) {
-        }
-
-        public void sortByAmount(ArrayList<Serving> servings) {
-        }
-
-        public ArrayList<Serving> getTooHighServings(int max, int min, ArrayList<Serving> servings) {
-            return null;
-        }
-
-        public ArrayList<Serving> getLessServings(int limit, ArrayList<Serving> servings) {
-            return null;
-        }
-    }
     
 }
