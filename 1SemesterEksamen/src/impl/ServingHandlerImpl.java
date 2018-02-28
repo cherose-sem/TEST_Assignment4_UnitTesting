@@ -16,13 +16,6 @@ public class ServingHandlerImpl implements ServingHandler {
      * @author Cherry Rose Semeña
      */
     @Override
-    public void sortByTime(ArrayList<Serving> servings) {
-    }
-
-    /**
-     * @author Cherry Rose Semeña
-     */
-    @Override
     public String readFile(String filename) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(filename));
         StringBuilder sb = new StringBuilder();
@@ -49,9 +42,9 @@ public class ServingHandlerImpl implements ServingHandler {
         ArrayList<Serving> servings = new ArrayList();
         String[] lines = data.split("\n");
         
-        for (int i = 1; i < lines.length-1; i++) {
+        for (int i = 1; i < lines.length; i++) {
             if (lines[i].length() > 0) {
-//                System.out.println("THE LINE IS " + lines[i]);
+                System.out.println("THE LINE IS " + lines[i]);
                 String[] arr = lines[i].split(",");
                 String date = arr[0];
                 String[] tm = arr[1].split(":");
@@ -204,9 +197,11 @@ public class ServingHandlerImpl implements ServingHandler {
     public static void main(String[] args) throws IOException, TimeFormatException {
         System.out.println("------------ STARTING -----------");
         ServingHandler hndl = new ServingHandlerImpl();
-        String res = hndl.readFile("Servings.csv");
+//        String res = hndl.readFile("Servings.csv");
 //        System.out.println(res);
-        ArrayList<Serving> servings = hndl.getServings(res);
+        String data = "DATE,TIME,AMOUNT,WAITER\n"
+                + "28-02-2018,2500,143,Cherry";
+        ArrayList<Serving> servings = hndl.getServings(data);
         for (int i = 0; i < servings.size(); i++) {
             String s = servings.get(i).toString();
             System.out.println(s);

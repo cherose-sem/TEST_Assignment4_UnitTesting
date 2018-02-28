@@ -9,10 +9,6 @@ import java.util.ArrayList;
  * @author Cherry Rose Semeña & Emmely Lundberg
  */
 public interface ServingHandler {
-    //Cherry
-
-    void sortByTime(ArrayList<Serving> servings);
-
     /**
      * Convert a file to a String
      * @param filename The name of the file to be read

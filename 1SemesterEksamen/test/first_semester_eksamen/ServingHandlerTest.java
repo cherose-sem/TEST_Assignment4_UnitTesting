@@ -64,14 +64,22 @@ public class ServingHandlerTest {
      * Test of readFile method, of class ServingHandler.
      */
     @Test
-    public void testReadFile() throws Exception {
+    public void testReadFile() throws IOException {
         System.out.println("readFile");
-        String filename = "";
+        String filename = "Servings.csv";
         String expResult = "";
         String result = instance.readFile(filename);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(expResult, result);
+    }
+    
+    /**
+     * Test of readFile method, of class ServingHandler.
+     */
+    @Test (expected = IOException.class)
+    public void testReadFileNoFileFound() throws Exception {
+        System.out.println("readFile");
+        String filename = "Serve.csv";
+        instance.readFile(filename);
     }
 
     /**
@@ -80,12 +88,22 @@ public class ServingHandlerTest {
     @Test
     public void testGetServings() throws Exception {
         System.out.println("getServings");
-        String data = "";
-        ArrayList<Serving> expResult = null;
+        String data = "DATE,TIME,AMOUNT,WAITER\n"
+                + "28-02-2018,23:00,143,Cherry";
         ArrayList<Serving> result = instance.getServings(data);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotEquals(null, result);
+        assertEquals(1, result.size());
+    }
+    
+    /**
+     * Test of getServings method, of class ServingHandler.
+     */
+    @Test (expected = TimeFormatException.class)
+    public void testGetServingsWrongTime() throws Exception {
+        System.out.println("getServings");
+        String data = "DATE,TIME,AMOUNT,WAITER\n"
+                + "28-02-2018,100:00,143,Cherry";
+        ArrayList<Serving> result = instance.getServings(data);
     }
 
     /**
@@ -165,19 +183,6 @@ public class ServingHandlerTest {
         result = instance.isTooMuch(this.max, serving);
         assertEquals(expResult, result);
 
-    }
-
-    /**
-     * Test of sortByTime method, of class ServingHandler.
-     */
-    @Test
-    public void testSortByTime() {
-        System.out.println("sortByTime");
-        ArrayList<Serving> servings = null;
-        ServingHandler instance = new ServingHandlerImpl();
-        instance.sortByTime(servings);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
