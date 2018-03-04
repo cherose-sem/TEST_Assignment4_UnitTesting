@@ -8,12 +8,19 @@ import java.io.FileReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.regex.Pattern;
 
 public class ServingHandlerImpl implements ServingHandler {
-
+    
+     //max The maximum servings allowed - 165ml
+     //min The minimum servings allowed - 155ml
+    private final int min= 155;
+    private final int max = 165;
+    
     /**
      * @author Cherry Rose Semeña
+     * @throws java.io.IOException
      */
     @Override
     public String readFile(String filename) throws IOException {
@@ -47,10 +54,7 @@ public class ServingHandlerImpl implements ServingHandler {
                 System.out.println("THE LINE IS " + lines[i]);
                 String[] arr = lines[i].split(",");
                 String date = arr[0];
-                String[] tm = arr[1].split(":");
-                int hr = Integer.parseInt(tm[0]);
-                int min = Integer.parseInt(tm[1]);
-                Time time = new Time(hr, min);
+                Time time = new Time(arr[1]);
 //                System.out.println("Amt" + arr[2] + ".");
                 boolean isNumber = Pattern.matches("[0-9]+", arr[2]);
                 int amt;
@@ -122,51 +126,70 @@ public class ServingHandlerImpl implements ServingHandler {
      * @author Cherry Rose Semeña
      */
     @Override
-    public ArrayList<Serving> getValidServings(int max, int min, ArrayList<Serving> servings) {
-        return null;
-    }
-
-    /**
-     * @author Emmely Lundberg
-     */
-    @Override
-    public boolean isTooMuch(int limit, Serving serving) {
-
-        if (serving.getAmount() > limit) {
-            return true;
+    public ArrayList<Serving> getValidServings(ArrayList<Serving> servings) {
+        ArrayList<Serving> validServings = new ArrayList();
+        for(int i = 0; i < servings.size(); i++){
+            Serving s = servings.get(i);
+            if(s.getAmount() >= min && s.getAmount() <= max){
+                validServings.add(s);
+            }
         }
-        return false;
-    }
-
-    /**
-     * @author Cherry Rose Semeña
-     */
-    @Override
-    public void sortByAmount(ArrayList<Serving> servings) {
-
-    }
-
-    /**
-     * @author Cherry Rose Semeña
-     */
-    @Override
-    public ArrayList<Serving> getTooHighServings(int max, ArrayList<Serving> servings) {
-        return null;
-    }
-
-    /**
-     * @author Cherry Rose Semeña
-     */
-    @Override
-    public ArrayList<Serving> getLessServings(int limit, ArrayList<Serving> servings) {
-        return null;
+        
+        return validServings;
     }
 
     /**
      * @author Emmely Lundberg
      */
     @Override
-    public int getTotalExcessServings(int max, ArrayList<Serving> servings) {
+    public boolean isTooMuch(Serving serving) {
+
+        return serving.getAmount() > max;
+    }
+
+    /**
+     * @author Cherry Rose Semeña
+     * @return 
+     */
+    @Override
+    public ArrayList<Serving> sortByAmount(ArrayList<Serving> servings) {
+        Collections.sort(servings, new ServingImpl.ServingByAmount());
+        return servings;
+    }
+
+    /**
+     * @author Cherry Rose Semeña
+     */
+    @Override
+    public ArrayList<Serving> getTooHighServings(ArrayList<Serving> servings) {
+        ArrayList<Serving> tooHigh = new ArrayList();
+        for(int i = 0; i < servings.size(); i++){
+            if(isTooMuch(servings.get(i))){
+                tooHigh.add(servings.get(i));
+            }
+        }
+        return tooHigh;
+    }
+
+    /**
+     * @author Cherry Rose Semeña
+     */
+    @Override
+    public ArrayList<Serving> getLessServings(ArrayList<Serving> servings) {
+        ArrayList<Serving> tooLess = new ArrayList();
+        for(int i = 0; i < servings.size(); i++){
+            if(!isTooMuch(servings.get(i))){
+                tooLess.add(servings.get(i));
+            }
+        }
+        return tooLess;
+    }
+
+    /**
+     * @author Emmely Lundberg
+     */
+    @Override
+    public int getTotalExcessServings(ArrayList<Serving> servings) {
         int size = servings.size();
         int amount = 0;
 
@@ -182,7 +205,7 @@ public class ServingHandlerImpl implements ServingHandler {
      * @author Emmely Lundberg
      */
     @Override
-    public int getTotalMissingServings(int min, ArrayList<Serving> servings) {
+    public int getTotalMissingServings(ArrayList<Serving> servings) {
         int size = servings.size();
         int amount = 0;
 
@@ -197,11 +220,17 @@ public class ServingHandlerImpl implements ServingHandler {
     public static void main(String[] args) throws IOException, TimeFormatException {
         System.out.println("------------ STARTING -----------");
         ServingHandler hndl = new ServingHandlerImpl();
-//        String res = hndl.readFile("Servings.csv");
-//        System.out.println(res);
-        String data = "DATE,TIME,AMOUNT,WAITER\n"
-                + "28-02-2018,2500,143,Cherry";
-        ArrayList<Serving> servings = hndl.getServings(data);
+        String res = hndl.readFile("Servings.csv");
+        ArrayList<Serving> servings = hndl.getServings(res);
+        ArrayList<Serving> valids = hndl.getValidServings(servings);
+        ArrayList<Serving> sorted = hndl.sortByAmount(servings);
+        ArrayList<Serving> tooHigh = hndl.getTooHighServings(servings);
+        ArrayList<Serving> tooLess = hndl.getLessServings(servings);
+        
+        print(tooLess);
+    }
+    
+    private static void print(ArrayList<Serving> servings){
         for (int i = 0; i < servings.size(); i++) {
             String s = servings.get(i).toString();
             System.out.println(s);
