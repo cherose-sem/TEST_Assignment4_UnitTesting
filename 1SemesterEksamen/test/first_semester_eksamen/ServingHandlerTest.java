@@ -24,8 +24,6 @@ import static org.junit.Assert.*;
  */
 public class ServingHandlerTest {
     private final ServingHandler instance = new ServingHandlerImpl();
-    private int min;
-    private int max;
     private ArrayList<Serving> servings;
 
     public ServingHandlerTest() {
@@ -44,9 +42,6 @@ public class ServingHandlerTest {
     public void setUp() {
 
         this.servings = new ArrayList<Serving>();
-
-        this.min = 155;
-        this.max = 165;
 
         Time t = new Time("10:01");
 
@@ -77,7 +72,7 @@ public class ServingHandlerTest {
      */
     @Test (expected = IOException.class)
     public void testReadFileNoFileFound() throws Exception {
-        System.out.println("readFile");
+        System.out.println("readFile - No File Found");
         String filename = "Serve.csv";
         instance.readFile(filename);
     }
@@ -98,11 +93,11 @@ public class ServingHandlerTest {
     /**
      * Test of getServings method, of class ServingHandler.
      */
-    @Test (expected = TimeFormatException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testGetServingsWrongTime() throws Exception {
         System.out.println("getServings");
         String data = "DATE,TIME,AMOUNT,WAITER\n"
-                + "28-02-2018,100:00,143,Cherry";
+                + "28-02-2018,23:590,143,Cherry";
         ArrayList<Serving> result = instance.getServings(data);
     }
 
@@ -150,11 +145,9 @@ public class ServingHandlerTest {
     @Test
     public void testGetValidServings() {
         System.out.println("getValidServings");
-        double expResult = 3;
-        ArrayList<Serving> result = instance.getValidServings(123, 33, servings);
+        int expResult = 1;
+        ArrayList<Serving> result = instance.getValidServings(servings);
         assertEquals(expResult, result.size());
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -168,19 +161,19 @@ public class ServingHandlerTest {
         ServingHandler instance = new ServingHandlerImpl();
         Serving serving = new ServingImpl("24-12-2017", t, 166, "André");
         boolean expResult = true;
-        boolean result = instance.isTooMuch(this.max, serving);
+        boolean result = instance.isTooMuch(serving);
         assertEquals(expResult, result);
 
 
         serving = new ServingImpl("24-12-2017", t, 165, "André");
         expResult = false;
-        result = instance.isTooMuch(this.max, serving);
+        result = instance.isTooMuch(serving);
         assertEquals(expResult, result);
 
 
         serving = new ServingImpl("24-12-2017", t, 164, "André");
         expResult = false;
-        result = instance.isTooMuch(this.max, serving);
+        result = instance.isTooMuch(serving);
         assertEquals(expResult, result);
 
     }
@@ -191,11 +184,13 @@ public class ServingHandlerTest {
     @Test
     public void testSortByAmount() {
         System.out.println("sortByAmount");
-        ArrayList<Serving> servings = null;
         ServingHandler instance = new ServingHandlerImpl();
         instance.sortByAmount(servings);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int smallestAmt = servings.get(0).getAmount();
+        int midAmt = servings.get(Math.round((servings.size()-1)/2)).getAmount();
+        int largestAmt = servings.get(servings.size()-1).getAmount();
+        assertTrue(smallestAmt < midAmt);
+        assertTrue(midAmt < largestAmt);
     }
 
     /**
@@ -204,15 +199,14 @@ public class ServingHandlerTest {
     @Test
     public void testGetTooHighServings() {
         System.out.println("getTooHighServings");
-        int max = 0;
-        int min = 0;
-        ArrayList<Serving> servings = null;
+        Time t = new Time("10:01");
+        this.servings.add(new ServingImpl("24-12-2017", t, 167, "Agatha"));
+        this.servings.add(new ServingImpl("24-12-2017", t, 166, "Carrie"));
+        this.servings.add(new ServingImpl("24-12-2017", t, 175, "Erika"));
+        int expected = 3;
         ServingHandler instance = new ServingHandlerImpl();
-        ArrayList<Serving> expResult = null;
-        ArrayList<Serving> result = instance.getTooHighServings(max, servings);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        ArrayList<Serving> res = instance.getTooHighServings(servings);
+        assertEquals(expected, res.size());
     }
 
     /**
@@ -221,14 +215,10 @@ public class ServingHandlerTest {
     @Test
     public void testGetLessServings() {
         System.out.println("getLessServings");
-        int limit = 0;
-        ArrayList<Serving> servings = null;
         ServingHandler instance = new ServingHandlerImpl();
-        ArrayList<Serving> expResult = null;
-        ArrayList<Serving> result = instance.getLessServings(limit, servings);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int expResult = 3;
+        ArrayList<Serving> result = instance.getLessServings(servings);
+        assertEquals(expResult, result.size());
     }
 
     /**
@@ -246,7 +236,7 @@ public class ServingHandlerTest {
         this.servings.add(new ServingImpl("24-12-2017", t, 165, "André"));
 
         int expResult = 3;
-        int result = instance.getTotalExcessServings(this.max, servings);
+        int result = instance.getTotalExcessServings(servings);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -265,7 +255,7 @@ public class ServingHandlerTest {
         servings.add(new ServingImpl("24-12-2017", t, 155, "André"));
         servings.add(new ServingImpl("24-12-2017", t, 154, "Sofia"));
         servings.add(new ServingImpl("24-12-2017", t, 153, "Paula"));
-        int result = instance.getTotalMissingServings(this.min, servings);
+        int result = instance.getTotalMissingServings(servings);
         assertEquals(expResult, result);
     }
 

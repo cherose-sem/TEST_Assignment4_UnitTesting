@@ -6,6 +6,7 @@
 package impl;
 
 import first_semester_eksamen.Serving;
+import java.util.Comparator;
 
 /**
  *
@@ -37,4 +38,13 @@ public class ServingImpl implements Serving {
 //        System.out.println("THE RES IS " + res);
         return res;
     }
+    
+    public static class ServingByAmount implements Comparator<Serving> {
+
+        @Override
+        public int compare(Serving o1, Serving o2) {
+            return o1.getAmount() > o2.getAmount() ? 1 : (o1.getAmount() < o2.getAmount() ? -1 : 0);
+        }
+    }
+
 }
