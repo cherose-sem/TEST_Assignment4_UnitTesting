@@ -267,7 +267,6 @@ public class ServingHandlerTest {
         servings.add(new ServingImpl("24-12-2017", t, 153, "Paula"));
         int result = instance.getTotalMissingServings(this.min, servings);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
 
