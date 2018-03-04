@@ -5,17 +5,13 @@
  */
 package first_semester_eksamen;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import impl.ServingHandlerImpl;
 import impl.ServingImpl;
 import impl.Time;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -124,18 +120,10 @@ public class ServingHandlerTest {
         System.out.println("getLessServing");
         ServingHandler instance = new ServingHandlerImpl();
         Serving expResult = null;
-//        Serving result = instance.getLessServing(servings);
-        //      assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //public String getDate();
-        //public Time getTime();
-        //ServingImpl(String date, Time time, int amount, String type)
+
         int exp = 142;
         Serving result2 = instance.getLessServing(servings);
         assertEquals(exp, result2.getAmount());
-
-        //todo fake an array of servings
-        // test that the function returns the lower
 
     }
 
@@ -238,7 +226,6 @@ public class ServingHandlerTest {
         int expResult = 3;
         int result = instance.getTotalExcessServings(servings);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**

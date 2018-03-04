@@ -25,7 +25,7 @@ class TwoServingHandlerImplTestJUnit5 {
         servings.add(new ServingImpl("24-12-2017", t, amount2, "André"));
         servings.add(new ServingImpl("24-12-2017", t, amount3, "Sofia"));
 
-        int result = instance.getTotalExcessServings(165, servings);
+        int result = instance.getTotalExcessServings(servings);
         assertEquals(expResult, result);
     }
     @DisplayName("Get amount of wine missing in serveing")
@@ -39,7 +39,7 @@ class TwoServingHandlerImplTestJUnit5 {
         servings.add(new ServingImpl("24-12-2017", t, amount2, "André"));
         servings.add(new ServingImpl("24-12-2017", t, amount3, "Sofia"));
         servings.add(new ServingImpl("24-12-2017", t, amount4, "Paula"));
-        int result = instance.getTotalMissingServings(155, servings);
+        int result = instance.getTotalMissingServings(servings);
         assertEquals(expResult, result);
     }
 
