@@ -24,4 +24,4 @@ There is a data set for wine servings. An interface with some methods was provid
 [_ServingImpl.java(implementation)_](https://github.com/cph-cs241/TEST_Assignment4_UnitTesting/blob/master/1SemesterEksamen/src/impl/ServingImpl.java)
 - [x] JUnit 4 Tests(10 methods): [_TestServingHandler.java_](https://github.com/cph-cs241/TEST_Assignment4_UnitTesting/blob/master/1SemesterEksamen/test/first_semester_eksamen/ServingHandlerTest.java)
 - [x] Implementation: [_ServingHandlerImpl.java_](https://github.com/cph-cs241/TEST_Assignment4_UnitTesting/blob/master/1SemesterEksamen/src/impl/ServingHandlerImpl.java)
-- [x] JUnit 5 (2 methods) - [_TwoServingHndlerImplTestJUnit5.java_] (https://github.com/cph-cs241/TEST_Assignment4_UnitTesting/blob/master/1SemesterEksamen/test/first_semester_eksamen/TwoServingHandlerImplTestJUnit5.java)
+- [x] JUnit 5 (2 methods) - [_TwoServingHndlerImplTestJUnit5.java_](https://github.com/cph-cs241/TEST_Assignment4_UnitTesting/blob/master/1SemesterEksamen/test/first_semester_eksamen/TwoServingHandlerImplTestJUnit5.java)
