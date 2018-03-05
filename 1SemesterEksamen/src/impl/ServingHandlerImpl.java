@@ -217,24 +217,24 @@ public class ServingHandlerImpl implements ServingHandler {
         return amount;
     }
 
-    public static void main(String[] args) throws IOException, TimeFormatException {
-        System.out.println("------------ STARTING -----------");
-        ServingHandler hndl = new ServingHandlerImpl();
-        String res = hndl.readFile("Servings.csv");
-        ArrayList<Serving> servings = hndl.getServings(res);
-        ArrayList<Serving> valids = hndl.getValidServings(servings);
-        ArrayList<Serving> sorted = hndl.sortByAmount(servings);
-        ArrayList<Serving> tooHigh = hndl.getTooHighServings(servings);
-        ArrayList<Serving> tooLess = hndl.getLessServings(servings);
-        
-        print(tooLess);
-    }
-    
-    private static void print(ArrayList<Serving> servings){
-        for (int i = 0; i < servings.size(); i++) {
-            String s = servings.get(i).toString();
-            System.out.println(s);
-        }
-    }
+//    public static void main(String[] args) throws IOException, TimeFormatException {
+//        System.out.println("------------ STARTING -----------");
+//        ServingHandler hndl = new ServingHandlerImpl();
+//        String res = hndl.readFile("Servings.csv");
+//        ArrayList<Serving> servings = hndl.getServings(res);
+//        ArrayList<Serving> valids = hndl.getValidServings(servings);
+//        ArrayList<Serving> sorted = hndl.sortByAmount(servings);
+//        ArrayList<Serving> tooHigh = hndl.getTooHighServings(servings);
+//        ArrayList<Serving> tooLess = hndl.getLessServings(servings);
+//        
+//        print(tooLess);
+//    }
+//    
+//    private static void print(ArrayList<Serving> servings){
+//        for (int i = 0; i < servings.size(); i++) {
+//            String s = servings.get(i).toString();
+//            System.out.println(s);
+//        }
+//    }
     
 }
