@@ -210,7 +210,7 @@ public class ServingHandlerImpl implements ServingHandler {
         int amount = 0;
 
         for (int i = 0; i < size; i++) {
-            if (servings.get(i).getAmount() < min) {
+            if (servings.get(i).getAmount() < min && servings.get(i).getAmount() > 0) {
                 amount += min - servings.get(i).getAmount();
             }
         }

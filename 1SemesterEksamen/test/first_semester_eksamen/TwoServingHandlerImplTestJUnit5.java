@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TwoServingHandlerImplTestJUnit5 {
-    /** JUnit 5 – Parameterized Tests */
+    /** JUnit 5 – Parameterized Tests https://blog.codefx.org/libraries/junit-5-parameterized-tests/ */
+
+
 
     @DisplayName("Get total excess serving")
-    @ParameterizedTest(name = "\"{0}{1}{2}\" should be {4}")
-    @CsvSource({ "167, 166, 165, 3", "167, 165, 164, 2", "167, 166, 166, 4"})
+    @ParameterizedTest(name = "\"{0}, {1}, {2}\" should be {3}")
+    @CsvSource({ "167, 166, 165, 3", "167, 165, 164, 2", "167, 166, 166, 4", "0, -166, -166, 0"})
     void getTotalExcessServings(int amount1, int amount2, int amount3, int expResult) {
         ServingHandler instance = new ServingHandlerImpl();
         ArrayList<Serving> servings = new ArrayList<Serving>();
@@ -29,8 +31,8 @@ class TwoServingHandlerImplTestJUnit5 {
         assertEquals(expResult, result);
     }
     @DisplayName("Get amount of wine missing in serveing")
-    @ParameterizedTest(name = "\"{0}{1}{2}{3}\" should be {4}")
-    @CsvSource({ "156, 155, 154, 153, 3", "156, 155, 154, 152, 4", "156, 155, 154, 151, 5"})
+    @ParameterizedTest(name = "\"{0}, {1}, {2}, {3}\" should be {4}")
+    @CsvSource({ "156, 155, 154, 153, 3", "156, 155, 154, 152, 4", "156, 155, 154, 151, 5", "0, 0, -1, -1, 0"})
     void getTotalMissingServings(int amount1, int amount2, int amount3, int amount4, int expResult) {
         ServingHandler instance = new ServingHandlerImpl();
         ArrayList<Serving> servings = new ArrayList<Serving>();
