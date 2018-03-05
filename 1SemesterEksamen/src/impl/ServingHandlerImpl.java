@@ -178,7 +178,7 @@ public class ServingHandlerImpl implements ServingHandler {
     public ArrayList<Serving> getLessServings(ArrayList<Serving> servings) {
         ArrayList<Serving> tooLess = new ArrayList();
         for(int i = 0; i < servings.size(); i++){
-            if(!isTooMuch(servings.get(i))){
+            if(servings.get(i).getAmount() < min){
                 tooLess.add(servings.get(i));
             }
         }

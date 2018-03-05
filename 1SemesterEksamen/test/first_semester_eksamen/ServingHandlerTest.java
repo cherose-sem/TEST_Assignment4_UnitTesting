@@ -204,8 +204,11 @@ public class ServingHandlerTest {
     public void testGetLessServings() {
         System.out.println("getLessServings");
         ServingHandler instance = new ServingHandlerImpl();
-        int expResult = 3;
+        int expResult = 2;
         ArrayList<Serving> result = instance.getLessServings(servings);
+        for(int i = 0; i < result.size(); i++){
+            System.out.println("TEST " + result.get(i).getAmount());
+        }
         assertEquals(expResult, result.size());
     }
 
