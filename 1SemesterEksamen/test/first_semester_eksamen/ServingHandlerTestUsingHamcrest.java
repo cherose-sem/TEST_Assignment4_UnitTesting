@@ -59,7 +59,7 @@ public class ServingHandlerTestUsingHamcrest {
         for (int i = 0; i < servings.size()-1; i++) {
             int first = servings.get(i).getAmount();
             int next = servings.get(i+1).getAmount();
-            assertThat(first, is(lessThanOrEqualTo(next))); //lessThan is only working on lower version of hamcrest
+            assertThat(first, is(lessThanOrEqualTo(next))); //lessThan is only working on lower version of hamcrest 1.2
         }
     }
 }
