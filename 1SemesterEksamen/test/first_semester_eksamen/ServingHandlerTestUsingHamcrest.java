@@ -9,14 +9,13 @@ import impl.ServingHandlerImpl;
 import impl.ServingImpl;
 import impl.Time;
 import java.util.ArrayList;
-import static org.hamcrest.CoreMatchers.any;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.core.Is.is;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
 
 /**
  *
@@ -50,5 +49,17 @@ public class ServingHandlerTestUsingHamcrest {
         int expResult = 157;
         Serving result = instance.getHighestServing(servings);
         assertThat(result, is(any(Serving.class)));
+        assertThat(result.getAmount(), is(equalTo(expResult)));
+    }
+    
+    @Test
+    public void testSortByAmount(){
+        System.out.println("sortByAmount");
+        instance.sortByAmount(servings);
+        for (int i = 0; i < servings.size()-1; i++) {
+            int first = servings.get(i).getAmount();
+            int next = servings.get(i+1).getAmount();
+            assertThat(first, is(lessThanOrEqualTo(next))); //lessThan is only working on lower version of hamcrest
+        }
     }
 }
