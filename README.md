@@ -38,4 +38,13 @@ _Continuing your work from last week, this week you will first of all improve yo
 
 ### Solution:
 
+#### _Testing 2 methods using Hamcrest:_
+
+Hamcrest is very useful in creating matcher objects which is often used in automated testing. It is designed to make the tests readable by using static methods that creates an assertion grammar. In our solution, you find it easy to understand by simply reading it, like “Assert that result is any Serving class”, “Assert that result’s amount is equal to the expected result”, “Assert that first is less than or equal to next”. There are some more matchers that can be used such as anything(), arrayContaining(),startsWith(), endsWith(),  arrayContainingInAnyOrder(), and so on. 
+
+![image](https://user-images.githubusercontent.com/16150075/37231599-051c59ea-23ec-11e8-88f6-1a9dcd8144f0.png)
+
+![image](https://user-images.githubusercontent.com/16150075/37231613-125cf52e-23ec-11e8-90d9-817f6d125465.png)
+
+#### _Data Driven Test for 2 methods:_
 
