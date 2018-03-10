@@ -1,6 +1,6 @@
 package first_semester_eksamen;
 
-        import impl.ServingHandlerImpl;
+import impl.ServingHandlerImpl;
 import impl.ServingImpl;
 import impl.Time;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/*Comment*/
+/**  * @author Cherry Rose Semeña & Emmely Lundberg*/
 @RunWith(Parameterized.class)
 public class DataDrivenTestGetTotalExcessServings {
 
@@ -28,10 +28,10 @@ public class DataDrivenTestGetTotalExcessServings {
 
     @Parameterized.Parameters
     public static Collection spreadsheetData() throws IOException {
-        InputStream spreadsheet = new FileInputStream("gettotalexcessservingss.xls");
+        InputStream spreadsheet = new FileInputStream("gettotalexcessservings.xls");
         return new SpreadsheetData(spreadsheet).getData();
     }
-
+    /** Inspiration: https://dzone.com/articles/data-driven-tests-junit-4-and */
     public DataDrivenTestGetTotalExcessServings(double amount1, double amount2, double amount3,  double expResult) {
         super();
         this.amount1 = (int) amount1;
