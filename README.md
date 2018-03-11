@@ -48,3 +48,30 @@ Hamcrest is very useful in creating matcher objects which is often used in autom
 
 #### _Data Driven Test for 2 methods:_
 
+We have chosen Excel documents (.xls) as the source for the data driven test.
+The reasoning behind choosing Excel documents are formats are because that non technical person can read/write which increases the number of people that contribute to the test data in a project. The code and inspiration for reading the Excel sheet has been taken from this article. Inspiration: https://dzone.com/articles/data-driven-tests-junit-4-and.
+
+Excerpts from the article:
+_“Data-driven testing is a great way to test calculation-based applications more thoroughly. In a real-world application, this Excel spreadsheet could be provided by the client or the end-user with the business logic encoded within the spreadsheet.”
+“The SpreadsheetData class uses the Apache POI project to load data from an Excel spreadsheet and transform it into a list of Object arrays compatible with the @Parameters annotation”_
+
+This is the code for testing getTotalExcessServings with data driven test: 
+##### Data from Excel sheet:
+![image](https://user-images.githubusercontent.com/16150075/37251275-53edfcf0-250d-11e8-82dd-54bb87ab53cd.png)
+
+##### Test Code
+![image](https://user-images.githubusercontent.com/16150075/37251278-6efee5ae-250d-11e8-814d-3084577ed942.png)
+
+##### Test Result
+![image](https://user-images.githubusercontent.com/16150075/37251281-7f8078d4-250d-11e8-9530-9aafa2a69a5d.png)
+
+This is the code for testing getValidServings with data driven test: 
+##### Data from Excel sheet:
+![image](https://user-images.githubusercontent.com/16150075/37251287-9a50b368-250d-11e8-94c1-9c22bd8111ac.png)
+
+##### Test Code
+![image](https://user-images.githubusercontent.com/16150075/37251295-affd05b8-250d-11e8-9ee8-efa7b8abecb4.png)
+
+##### Test Result
+![image](https://user-images.githubusercontent.com/16150075/37251299-bcdf0290-250d-11e8-8a64-d3fe843800bf.png)
+
