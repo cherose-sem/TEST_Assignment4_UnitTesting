@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**  * @author Cherry Rose Semeña & Emmely Lundberg*/
+/** @author Cherry Rose Semeña & Emmely Lundberg*/
 @RunWith(Parameterized.class)
 public class DataDrivenTestGetTotalExcessServings {
 
