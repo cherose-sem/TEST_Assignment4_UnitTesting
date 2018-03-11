@@ -44,8 +44,8 @@ public class DataDrivenTestGetValidServings {
         ArrayList<Serving> servings = new ArrayList<Serving>();
         Time t = new Time("10:01");
         servings.add(new ServingImpl("24-12-2017", t, this.amount1, "André"));
-        servings.add(new ServingImpl("24-12-2017", t, this.amount2, "André"));
-        servings.add(new ServingImpl("24-12-2017", t, this.amount3, "Sofia"));
+        servings.add(new ServingImpl("24-12-2017", t, this.amount2, "Sofia"));
+        servings.add(new ServingImpl("24-12-2017", t, this.amount3, "Paula"));
 
         int result = instance.getValidServings(servings).size();
         assertEquals(this.expResult, result);
