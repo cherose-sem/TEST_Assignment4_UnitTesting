@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.lessThanOrEqualTo;
 
 /**
  *
- * @author Cherry Rose Semeña
+ * @author Cherry Rose Semeña & Emmely Lundberg
  */
 public class ServingHandlerTestUsingHamcrest {
     
